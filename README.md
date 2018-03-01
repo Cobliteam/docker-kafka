@@ -3,10 +3,7 @@ Apache Kafka on Docker
 
 This repository holds a build definition and supporting files for building a
 [Docker] image to run [Kafka] in containers. It is published as an Automated
-Build [on Docker Hub], as `muallin/docker-kafka`.
-
-Currently , it does have just 1 tag , 1.0.0.
-No 'latest' tag available.
+Build [on Docker Hub], as `cobli/kafka`.
 
 This build intends to provide an operator-friendly Kafka deployment suitable for
 usage in a production Docker environment:
@@ -17,9 +14,6 @@ usage in a production Docker environment:
     multiple container instances.
   - Kafka data and logs can be handled outside the container(s) using volumes.
   - JMX is exposed, for Kafka and JVM metrics visibility.
-
-If you find any shortcomings with the build regarding operability, pull requests
-or feedback via GitHub issues are welcomed.
 
 [Docker Compose]: https://docs.docker.com/compose/
 
@@ -107,23 +101,33 @@ with their default values, if any:
   in a cluster.
 - `KAFKA_PORT=9092`
 
-  Maps to Kafka's `port` setting. The port that the broker service listens on.
-  You will need to explicitly publish a new port from container instances if you
-  change this.
-- `KAFKA_LISTENER_HOST_NAME=<container's hostname>`
-
-  Maps to Kafka's `advertised.host.name` setting. Kafka brokers gossip the list
-  of brokers in the cluster to relieve producers from depending on a ZooKeeper
-  library. This setting should reflect the address at which producers can reach
-  the broker on the network, i.e. if you build a cluster consisting of multiple
-  physical Docker hosts, you will need to set this to the hostname of the Docker
-  *host's* interface where you forward the container `KAFKA_PORT`.
+  Defines Kafka's port in the `listeners` setting.
+  The port that the broker service listens on. You will need to explicitly
+  publish a new port from container instances if you change this.
 - `KAFKA_ADVERTISED_PORT=9092`
 
-  As above, for the port part of the advertised address. Maps to Kafka's
-  `advertised.port` setting. If you run multiple broker containers on a single
-  Docker host and need them to be accessible externally, this should be set to
-  the port that you forward to on the Docker host.
+  Defines Kafka's port in the `advertised.listeners` setting.
+  The port that the broker service listens on. You will need to explicitly
+  publish a new port from container instances if you change this.
+
+- `KAFKA_LISTENER_HOST_NAME=<container's hostname>`
+
+  Defines Kafka's hostname in the `listeners` setting.
+  Kafka brokers gossip the list of brokers in the cluster to relieve producers
+  from depending on a ZooKeeper library. This setting should reflect the
+  address at which producers can reach the broker on the network, i.e. if you
+  build a cluster consisting of multiple physical Docker hosts, you will need to
+  set this to the hostname of the Docker *host's* interface where you forward
+  the container `KAFKA_PORT`.
+- `KAFKA_ADVERTISED_HOST_NAME=<container's hostname>`
+
+  Defines Kafka's hostname in the `advertised.listeners` setting.
+  Kafka brokers gossip the list of brokers in the cluster to relieve producers
+  from depending on a ZooKeeper library. This setting should reflect the
+  address at which producers can reach the broker on the network, i.e. if you
+  build a cluster consisting of multiple physical Docker hosts, you will need to
+  set this to the hostname of the Docker *host's* interface where you forward
+  the container `KAFKA_PORT`.
 - `KAFKA_DEFAULT_REPLICATION_FACTOR=1`
 
   Maps to Kafka's `default.replication.factor` setting. The default replication
@@ -232,8 +236,8 @@ Java system properties by setting `KAFKA_JMX_OPTS` yourself—see `start.sh`.
 Fork Legacy
 -----------
 
-This image/repo was originally forked from [relateiq/kafka]. My original
-motivations for forking were:
+This image was forked from [ches/kafka], which was itself forked from
+[relateiq/kafka]. The original motivations for forking were:
 
 - Change the Kafka binary source to an official Apache artifact. RelateIQ's was
   on a private S3 bucket, and this opaqueness is not suitable for a
@@ -248,7 +252,8 @@ project's changelog file describes these in detail.
 
 [Docker]: http://www.docker.io
 [Kafka]: http://kafka.apache.org
-[on Docker Hub]: https://hub.docker.com/r/ches/kafka/
+[on Docker Hub]: https://hub.docker.com/r/cobli/kafka/
+[ches/kafka]: https://github.com/ches/docker-kafka
 [relateiq/kafka]: https://github.com/relateiq/docker-kafka
 [the Kafka Quick Start]: http://kafka.apache.org/documentation.html#quickstart
 
