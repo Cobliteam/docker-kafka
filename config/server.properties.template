@@ -32,7 +32,9 @@ default.replication.factor={{KAFKA_DEFAULT_REPLICATION_FACTOR}}
 #     listeners = listener_name://host_name:port
 #   EXAMPLE:
 #     listeners = PLAINTEXT://your.host.name:9092
-listeners=PLAINTEXT://{{KAFKA_LISTENER_HOST_NAME}}:9092
+#
+listeners=PLAINTEXT://{{KAFKA_LISTENER_HOST_NAME}}:{{KAFKA_PORT}}
+advertised.listeners=PLAINTEXT://{{KAFKA_ADVERTISED_HOST_NAME}}:{{KAFKA_ADVERTISED_PORT}}
 
 # Enable topic deletion
 delete.topic.enable={{KAFKA_DELETE_TOPIC_ENABLE}}
@@ -40,8 +42,8 @@ delete.topic.enable={{KAFKA_DELETE_TOPIC_ENABLE}}
 ############################# Socket Server Settings #############################
 
 # The port the socket server listens on
-port={{KAFKA_PORT}}
-advertised.port={{KAFKA_ADVERTISED_PORT}}
+#port={{KAFKA_PORT}}
+#advertised.port={{KAFKA_ADVERTISED_PORT}}
 
 ############################# Log Basics #############################
 
