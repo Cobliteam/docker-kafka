@@ -23,6 +23,7 @@ auto.leader.rebalance.enable=true
 # Replication
 auto.create.topics.enable={{KAFKA_AUTO_CREATE_TOPICS_ENABLE}}
 default.replication.factor={{KAFKA_DEFAULT_REPLICATION_FACTOR}}
+offsets.topic.replication.factor={{KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR}}
 
 ############################# Socket Server Settings #############################
 
@@ -39,16 +40,9 @@ advertised.listeners=PLAINTEXT://{{KAFKA_ADVERTISED_HOST_NAME}}:{{KAFKA_ADVERTIS
 # Enable topic deletion
 delete.topic.enable={{KAFKA_DELETE_TOPIC_ENABLE}}
 
-############################# Socket Server Settings #############################
-
-# The port the socket server listens on
-#port={{KAFKA_PORT}}
-#advertised.port={{KAFKA_ADVERTISED_PORT}}
-
 ############################# Log Basics #############################
 
 # The directory under which to store log files
-log.dir=/data
 log.dirs=/data
 
 # The number of logical partitions per topic per server. More partitions allow greater parallelism
