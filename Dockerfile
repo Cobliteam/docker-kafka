@@ -8,7 +8,7 @@
 # Thanks to Ches Martin <ches@whiskeyandgrits.net> 
 
 FROM netflixoss/java:8
-MAINTAINER Jose Luis Sanchez <muallin@gmail.com>
+MAINTAINER Cobli Tech Team <tech@cobli.co>
 
 
 # The Scala 2.12 build is currently recommended by the project.
