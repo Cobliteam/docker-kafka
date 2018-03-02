@@ -37,12 +37,14 @@ RUN tar -zx -C /kafka --strip-components=1 -f ${KAFKA_RELEASE_ARCHIVE} && \
   rm -rf kafka_*
 
 ADD config /kafka/config
-ADD start.sh /start.sh
+ADD start.sh /kafka/start.sh
 
 # Set up a user to run Kafka
 RUN groupadd kafka && \
-  useradd -d /kafka -g kafka -s /bin/false kafka && \
-  chown -R kafka:kafka /kafka /data /logs
+  useradd -d /kafka -g kafka -s /bin/false kafka
+RUN chown -R kafka:kafka /kafka /data /logs
+RUN chmod -R u=rwX,g=rw,o= /kafka /data /logs
+
 USER kafka
 ENV PATH /kafka/bin:$PATH
 WORKDIR /kafka
@@ -51,5 +53,5 @@ WORKDIR /kafka
 EXPOSE 9092 ${JMX_PORT}
 VOLUME [ "/data", "/logs" ]
 
-CMD ["/start.sh"]
+CMD ["/kafka/start.sh"]
 
